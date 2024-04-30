@@ -4,6 +4,7 @@ import ActiveLink from "../../Components/ActiveLink/ActiveLink";
 
 const Navbar = () => {
   const { user } = useAuth();
+  // console.log(user);
   return (
     <div>
       <div className="sticky top-0 left-0 z-50">
@@ -38,11 +39,14 @@ const Navbar = () => {
           <div className="flex items-center gap-x-4">
             {user ? (
               <>
-                <img
-                  className="h-[40px] rounded-[50%]"
+                {/* <img
                   src={user?.photoURL}
+                  className="h-[60px] w-[60px]"
                   alt=""
-                />
+                /> */}
+                <p className="text-xl text-slate-700 font-semibold">
+                  <Link to="/about">{user?.displayName}</Link>
+                </p>
               </>
             ) : (
               <button className="blue-btn">
