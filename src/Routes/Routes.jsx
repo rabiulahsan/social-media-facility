@@ -10,6 +10,7 @@ import About from "../page/About/About";
 import UpdatedAbout from "../page/About/UpdatedAbout";
 import ResetPage from "../page/Login/ResetPage";
 import SinglePostPage from "../page/SinglePostPage/SinglePostPage";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -39,7 +40,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About></About>,
+        element: (
+          <PrivateRoute>
+            <About></About>,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/update-about",
