@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
         element: <ResetPage></ResetPage>,
       },
       {
-        path: "/posts/:id",
+        path: "/post/:id",
         element: <SinglePostPage>,</SinglePostPage>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/posts/${params.id}`),
