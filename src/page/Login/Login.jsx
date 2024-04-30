@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import useAuth from "../../Hooks/UseAuth";
+import GoogleSignin from "../../Shared/GoogleSignin/GoogleSignin";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -87,7 +88,9 @@ const Login = () => {
             <Link to="/reset-password">Forget password?</Link>
           </p>
           <p className="text-center text-gray-400 my-5">or</p>
-          <div className="my-5">{/* <GoogleSignin></GoogleSignin> */}</div>
+          <div className="my-5">
+            <GoogleSignin></GoogleSignin>
+          </div>
           <p className="flex flex-col text-center text-gray-500">
             Don&apos;t have an account?
             <Link to={"/signup"}>
