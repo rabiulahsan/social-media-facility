@@ -26,6 +26,8 @@ const UpdatedAbout = () => {
       .catch((error) => console.error(error));
   }, [user]);
 
+  console.log(loggedUser);
+
   const details = {
     image:
       "https://brand.cornell.edu/assets/images/photography/UP_2017_1304_147_select.jpg",
@@ -58,21 +60,18 @@ const UpdatedAbout = () => {
     };
     console.log(userBody);
 
-    fetch(
-      `https://college-facilities-server.vercel.app/users/${loggedUser?._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(userBody),
-      }
-    )
+    fetch(`http://localhost:5000/users/${loggedUser?._id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(userBody),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount == 1) {
           reset();
-          navigate("/profile");
+          navigate("/about");
           Toast.fire({
             icon: "success",
             title: "Profile update successfully",
