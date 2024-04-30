@@ -15,7 +15,7 @@ const Featured = () => {
       <SectionTitle heading="Most Liked Post"></SectionTitle>;
       <div className=" flex flex-col mx-[30%]">
         {isLoading && <SkeletonCard number={16}></SkeletonCard>}
-        {posts?.map((post) => (
+        {posts?.slice(0, 3).map((post) => (
           <PostCard key={post?._id} post={post}></PostCard>
         ))}
       </div>
