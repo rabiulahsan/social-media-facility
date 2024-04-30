@@ -167,7 +167,7 @@ const PostCard = ({ post }) => {
             </span>
           </div>
         ) : (
-          <p className="text-gray-500 text-base font-semibold hover:underline hover:text-orange-400">
+          <p className="text-gray-500 text-base font-semibold hover:underline hover:text-orange-400 mt-3">
             <Link to="/login">Login to react on this</Link>
           </p>
         )}

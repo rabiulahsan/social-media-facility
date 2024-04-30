@@ -56,7 +56,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/post/:id",
-        element: <SinglePostPage>,</SinglePostPage>,
+        element: (
+          <PrivateRoute>
+            <SinglePostPage></SinglePostPage>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/posts/${params.id}`),
       },
