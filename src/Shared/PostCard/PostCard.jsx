@@ -8,10 +8,24 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const PostCard = ({ post }) => {
-  console.log(post);
+  // console.log(post);
   const { user } = useAuth();
   const [isLike, setIsLike] = useState(false);
   const [favouriteData] = UseFavourite();
+  const [likesCount, setLikesCount] = useState(post?.likes);
+
+  // for swal notification
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
+  });
 
   //set default or like
   useEffect(() => {
@@ -36,20 +50,37 @@ const PostCard = ({ post }) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.deletedCount) {
-          Swal.fire({
-            position: "top-end",
+          Toast.fire({
             icon: "success",
-            title: "Remove like",
-            showConfirmButton: false,
-            timer: 700,
+            title: "Removed Like",
           });
           setIsLike(false);
+          setLikesCount((prevCount) => prevCount - 1);
+
+          //decrease the like
+          const postBody = {
+            likes: post?.likes - 1,
+          };
+          fetch(`http://localhost:5000/posts/${post?._id}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(postBody),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.modifiedCount == 1) {
+                console.log(post?.likes);
+              }
+            });
         }
       })
       .catch((error) => {
         console.error("Error removing like:", error);
       });
   };
+
   //posting the lilke one
   const handleFavourite = () => {
     const savedData = {
@@ -67,14 +98,30 @@ const PostCard = ({ post }) => {
       .then((data) => {
         console.log(data);
         if (data.insertedId) {
-          setIsLike(!isLike);
-          Swal.fire({
-            position: "top-end",
+          Toast.fire({
             icon: "success",
             title: "Liked",
-            showConfirmButton: false,
-            timer: 700,
           });
+          setIsLike(!isLike);
+          setLikesCount((prevCount) => prevCount + 1);
+
+          //increase the like
+          const postBody = {
+            likes: post?.likes + 1,
+          };
+          fetch(`http://localhost:5000/posts/${post?._id}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(postBody),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.modifiedCount == 1) {
+                console.log(post?.likes);
+              }
+            });
         }
       });
   };
@@ -116,7 +163,7 @@ const PostCard = ({ post }) => {
               {isLike ? <FaHeart /> : <FaRegHeart />}
             </span>
             <span className="text-slate-700 font-semibold text-lg">
-              {post?.likes}
+              {likesCount}
             </span>
           </div>
         ) : (
