@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import useAuth from "../../Hooks/UseAuth";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const PostCard = ({ post }) => {
   console.log(post);
@@ -14,7 +15,33 @@ const PostCard = ({ post }) => {
     setIsLike(false);
   };
   const handleFavourite = () => {
-    setIsLike(true);
+    const savedData = {
+      userEmail: user?.email,
+      postId: post?._id,
+    };
+    // console.log(savedData);
+
+    fetch("http://localhost:5000/favourites", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(savedData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          setIsLike(!isLike);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Liked",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        }
+      });
   };
   return (
     <div className="bg-white rounded-xl p-5 mb-5">
