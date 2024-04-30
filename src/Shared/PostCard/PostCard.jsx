@@ -3,24 +3,59 @@
 import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import useAuth from "../../Hooks/UseAuth";
-import { useState } from "react";
+import UseFavourite from "../../Hooks/UseFavourite";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const PostCard = ({ post }) => {
   console.log(post);
   const { user } = useAuth();
   const [isLike, setIsLike] = useState(false);
+  const [favouriteData] = UseFavourite();
 
+  //set default or like
+  useEffect(() => {
+    if (user && favouriteData.length > 0) {
+      const isPostLiked = favouriteData.some(
+        (data) => data.postId === post?._id
+      );
+      setIsLike(isPostLiked);
+    } else {
+      setIsLike(false); // If user is not authenticated or no favourite data available, set isLike to false
+    }
+  }, [user, post?._id, favouriteData]);
+
+  // removing from favourites
   const handleFavouriteDelete = () => {
-    setIsLike(false);
+    fetch(`http://localhost:5000/favourites/${post?._id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.deletedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Remove like",
+            showConfirmButton: false,
+            timer: 700,
+          });
+          setIsLike(false);
+        }
+      })
+      .catch((error) => {
+        console.error("Error removing like:", error);
+      });
   };
+  //posting the lilke one
   const handleFavourite = () => {
     const savedData = {
       userEmail: user?.email,
       postId: post?._id,
     };
-    // console.log(savedData);
-
     fetch("http://localhost:5000/favourites", {
       method: "POST",
       headers: {
@@ -38,7 +73,7 @@ const PostCard = ({ post }) => {
             icon: "success",
             title: "Liked",
             showConfirmButton: false,
-            timer: 1000,
+            timer: 700,
           });
         }
       });
@@ -86,7 +121,7 @@ const PostCard = ({ post }) => {
           </div>
         ) : (
           <p className="text-gray-500 text-base font-semibold hover:underline hover:text-orange-400">
-            <Link to="/login">Login for react on this</Link>
+            <Link to="/login">Login to react on this</Link>
           </p>
         )}
       </div>

@@ -8,7 +8,7 @@ const UseSingleUser = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users?favourites=${user?.email}`)
+    fetch(`http://localhost:5000/favourites?email=${user?.email}`)
       .then((response) => response.json())
       .then((data) => {
         setFavouriteData(data);
