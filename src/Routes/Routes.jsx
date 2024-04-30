@@ -8,6 +8,7 @@ import Media from "../page/Media/Media";
 import Message from "../page/Message/Message";
 import About from "../page/About/About";
 import UpdatedAbout from "../page/About/UpdatedAbout";
+import ResetPage from "../page/Login/ResetPage";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "/update-about",
         element: <UpdatedAbout></UpdatedAbout>,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPage></ResetPage>,
       },
     ],
   },
