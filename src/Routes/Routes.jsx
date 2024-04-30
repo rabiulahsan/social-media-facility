@@ -9,6 +9,7 @@ import Message from "../page/Message/Message";
 import About from "../page/About/About";
 import UpdatedAbout from "../page/About/UpdatedAbout";
 import ResetPage from "../page/Login/ResetPage";
+import SinglePostPage from "../page/SinglePostPage/SinglePostPage";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,12 @@ export const router = createBrowserRouter([
       {
         path: "/reset-password",
         element: <ResetPage></ResetPage>,
+      },
+      {
+        path: "/posts/:id",
+        element: <SinglePostPage>,</SinglePostPage>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/posts/${params.id}`),
       },
     ],
   },
