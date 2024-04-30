@@ -11,6 +11,7 @@ import useAuth from "../../Hooks/UseAuth";
 import Navbar from "../../Shared/Navbar/Navbar";
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import Footer from "../../Shared/Footer/Footer";
+import PageBanner from "../../Components/PageBanner/PageBanner";
 
 const UpdatedAbout = () => {
   const [loggedUser, setLoggedUser] = useState([]);
@@ -82,7 +83,7 @@ const UpdatedAbout = () => {
   return (
     <div>
       <Navbar></Navbar>
-      {/* <PageBanner details={details}></PageBanner> */}
+      <PageBanner details={details}></PageBanner>
       <SectionTitle heading="Update Profile"></SectionTitle>
       <div className="mx-[8%] mb-[6%]">
         <form onSubmit={handleSubmit(onSubmit)} className="relative">
