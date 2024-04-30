@@ -16,6 +16,7 @@ const UseSingleUser = () => {
       })
       .catch((error) => console.error(error));
   }, [user]);
+  // console.log(loggedUser);
   return [loggedUser, isLoading];
 };
 

@@ -1,11 +1,10 @@
-import useAuth from "../../Hooks/UseAuth";
+/* eslint-disable react/prop-types */
 
 const PostCard = ({ post }) => {
-  const { user } = useAuth();
+  // console.log(post);
   return (
     <div className="bg-white rounded-3xl p-3">
       <div className="">
-        <img src={user?.photoURL} alt="" />
         <p></p>
       </div>
       <div className=""></div>
