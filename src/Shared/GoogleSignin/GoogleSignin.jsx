@@ -14,7 +14,7 @@ const GoogleSignin = () => {
       alert("At first logout");
       return;
     } else {
-      googleLogin()
+      googleLogin() //todo google log in failure
         .then((result) => {
           const loggedInUser = result.user;
           const saveUser = {

@@ -13,9 +13,10 @@ const Signup = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const { createUser, updateUserProfile } = useAuth();
+  const { createUser, updateUserProfile, user } = useAuth();
   const navigate = useNavigate();
   const [error, seterror] = useState("");
+  user && navigate("/");
 
   const onSubmit = (data) => {
     // confirm password condition

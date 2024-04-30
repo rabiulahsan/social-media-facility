@@ -14,9 +14,10 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const { signIn } = useAuth();
+  const { signIn, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  user && navigate("/");
 
   const from = location.state?.from?.pathname || "/";
 
