@@ -3,7 +3,7 @@ import Navbar from "../../../Shared/Navbar/Navbar";
 
 const Home = () => {
   return (
-    <div className="bg-sky-200">
+    <div className="bg-slate-100">
       <Navbar></Navbar>
       <Footer></Footer>
     </div>
