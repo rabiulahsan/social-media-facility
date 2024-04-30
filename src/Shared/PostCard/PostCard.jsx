@@ -43,10 +43,12 @@ const PostCard = ({ post }) => {
           className="h-[350px] w-full   rounded-xl object-cover"
         />
         {user ? (
-          <div className="text-red-600 mt-3 px-4 flex gap-x-2 items-center">
+          <div className="text-red-600 mt-3 px-4 flex gap-x-1 items-center">
             <span
               onClick={isLike ? handleFavouriteDelete : handleFavourite}
-              className="text-2xl font-bold cursor-pointer"
+              className={`${
+                isLike ? "text-red-600" : "text-slate-600"
+              } text-xl font-bold cursor-pointer`}
               title="like"
             >
               {isLike ? <FaHeart /> : <FaRegHeart />}
