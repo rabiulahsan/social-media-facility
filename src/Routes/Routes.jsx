@@ -7,6 +7,7 @@ import Login from "../page/Login/Login";
 import Media from "../page/Media/Media";
 import Message from "../page/Message/Message";
 import About from "../page/About/About";
+import UpdatedAbout from "../page/About/UpdatedAbout";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <About></About>,
+      },
+      {
+        path: "/update-about",
+        element: <UpdatedAbout></UpdatedAbout>,
       },
     ],
   },
