@@ -1,9 +1,21 @@
 /* eslint-disable react/prop-types */
 
 import { Link } from "react-router-dom";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import useAuth from "../../Hooks/UseAuth";
+import { useState } from "react";
 
 const PostCard = ({ post }) => {
   console.log(post);
+  const { user } = useAuth();
+  const [isLike, setIsLike] = useState(false);
+
+  const handleFavouriteDelete = () => {
+    setIsLike(false);
+  };
+  const handleFavourite = () => {
+    setIsLike(true);
+  };
   return (
     <div className="bg-white rounded-xl p-5 mb-5">
       <div className=" flex justify-between mb-4">
@@ -30,6 +42,24 @@ const PostCard = ({ post }) => {
           alt=""
           className="h-[350px] w-full   rounded-xl object-cover"
         />
+        {user ? (
+          <div className="text-red-600 mt-3 px-4 flex gap-x-2 items-center">
+            <span
+              onClick={isLike ? handleFavouriteDelete : handleFavourite}
+              className="text-2xl font-bold cursor-pointer"
+              title="like"
+            >
+              {isLike ? <FaHeart /> : <FaRegHeart />}
+            </span>
+            <span className="text-slate-700 font-semibold text-lg">
+              {post?.likes}
+            </span>
+          </div>
+        ) : (
+          <p className="text-gray-500 text-base font-semibold hover:underline hover:text-orange-400">
+            <Link to="/login">Login for react on this</Link>
+          </p>
+        )}
       </div>
     </div>
   );
