@@ -7,9 +7,9 @@ const Navbar = () => {
   return (
     <div>
       <div className="sticky top-0 left-0 z-50">
-        <div className="flex justify-between items-center w-full absolute top-0 left-0  py-3 px-[16%] text-slate-600 bg-white">
+        <div className="flex justify-between items-center w-full  top-0 left-0  py-3 px-[16%] text-slate-600 bg-white">
           <Link to="/">
-            <p className="text-3xl text-sky-600 font-extrabold">Explorer</p>
+            <p className="text-3xl text-sky-600 font-extrabold">Share Words</p>
           </Link>
           <div className="">
             <ul className="flex text-[18px] font-semibold">
