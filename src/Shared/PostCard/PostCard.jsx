@@ -207,8 +207,7 @@ const PostCard = ({ post }) => {
           )}
         </div>
       </div>
-
-      <MainComment id={post?._id}></MainComment>
+      {isComment && <MainComment id={post?._id}></MainComment>}
     </div>
   );
 };
