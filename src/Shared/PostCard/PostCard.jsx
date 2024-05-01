@@ -9,12 +9,13 @@ import UseFavourite from "../../Hooks/UseFavourite";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import MainComment from "./MainComment";
-
-//todo - userimage have to be changed
+import UseSingleUser from "../../Hooks/UseSingleUser";
 
 const PostCard = ({ post, handleDelete }) => {
   // console.log(post);
   const { user } = useAuth();
+  const [loggedUser] = UseSingleUser();
+  console.log(loggedUser);
   const [isLike, setIsLike] = useState(false);
   const [favouriteData] = UseFavourite();
   const [likesCount, setLikesCount] = useState(post?.likes);
@@ -146,7 +147,11 @@ const PostCard = ({ post, handleDelete }) => {
       <div className=" flex justify-between mb-4">
         <div className=" flex items-center gap-x-4">
           <img
-            src={post?.postImage}
+            src={
+              post?.userEmail == loggedUser?.email
+                ? loggedUser?.image
+                : "/profile.png"
+            }
             alt=""
             className="w-[30px] h-[30px] rounded-full"
           />
