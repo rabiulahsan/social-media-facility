@@ -56,12 +56,15 @@ const PostCard = ({ post }) => {
 
   // removing from favourites
   const handleFavouriteDelete = () => {
-    fetch(`http://localhost:5000/favourites/${post?._id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://social-facilites-server.vercel.app/favourites/${post?._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.deletedCount) {
@@ -76,13 +79,16 @@ const PostCard = ({ post }) => {
           const postBody = {
             likes: post?.likes - 1,
           };
-          fetch(`http://localhost:5000/posts/${post?._id}`, {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(postBody),
-          })
+          fetch(
+            `https://social-facilites-server.vercel.app/posts/${post?._id}`,
+            {
+              method: "PUT",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(postBody),
+            }
+          )
             .then((res) => res.json())
             .then((data) => {
               if (data.modifiedCount == 1) {
@@ -102,7 +108,7 @@ const PostCard = ({ post }) => {
       userEmail: user?.email,
       postId: post?._id,
     };
-    fetch("http://localhost:5000/favourites", {
+    fetch("https://social-facilites-server.vercel.app/favourites", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -124,13 +130,16 @@ const PostCard = ({ post }) => {
           const postBody = {
             likes: post?.likes + 1,
           };
-          fetch(`http://localhost:5000/posts/${post?._id}`, {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(postBody),
-          })
+          fetch(
+            `https://social-facilites-server.vercel.app/posts/${post?._id}`,
+            {
+              method: "PUT",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(postBody),
+            }
+          )
             .then((res) => res.json())
             .then((data) => {
               if (data.modifiedCount == 1) {

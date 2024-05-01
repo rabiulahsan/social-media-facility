@@ -13,7 +13,7 @@ const MainComment = ({ id }) => {
   const [loggedUser] = UseSingleUser();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/comments?id=${id}`)
+    fetch(`https://social-facilites-server.vercel.app/comments?id=${id}`)
       .then((response) => response.json())
       .then((data) => {
         setCommentData(data);
@@ -34,7 +34,7 @@ const MainComment = ({ id }) => {
       postId: id,
     };
     // console.log(commentBody);
-    fetch(`http://localhost:5000/comments`, {
+    fetch(`https://social-facilites-server.vercel.app/comments`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

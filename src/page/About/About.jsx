@@ -40,7 +40,9 @@ const About = () => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users?email=${user?.email}`)
+    fetch(
+      `https://social-facilites-server.vercel.app/users?email=${user?.email}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setLoggedUser(data);
@@ -68,7 +70,7 @@ const About = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/posts/${id}`, {
+        fetch(`https://social-facilites-server.vercel.app/posts/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import dayjs from "dayjs";
 
 const AddPost = () => {
+  const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState("");
   const [loggedUser] = UseSingleUser();
   const fileInputRef = useRef(null);
@@ -36,6 +37,7 @@ const AddPost = () => {
   });
 
   const onSubmit = (data) => {
+    setLoading(true);
     // posting to imagebb for getting the image url
     const imageData = new FormData();
     imageData.append("image", fileInputRef.current.files[0]);
@@ -63,7 +65,7 @@ const AddPost = () => {
           console.log(postBody);
 
           //   posting it to database
-          fetch("http://localhost:5000/posts", {
+          fetch("https://social-facilites-server.vercel.app/posts", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -80,6 +82,9 @@ const AddPost = () => {
                   title: "Post has been created successfully",
                 });
               }
+            })
+            .finally(() => {
+              setLoading(false); // Stop loading when the request is completed
             });
         }
       });
@@ -136,14 +141,14 @@ const AddPost = () => {
                   className="w-[30px] h-[30px] object-cover inline mx-5"
                 />
               )}
-              {/* <span className=" text-slate-600 font-semibold text-base ">
-              {fileName}
-            </span> */}
             </div>
             <input
-              className="blue-btn cursor-pointer font-bold "
+              className={`blue-btn cursor-pointer ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               type="submit"
               value="Post"
+              disabled={loading}
             />
           </div>
         </form>

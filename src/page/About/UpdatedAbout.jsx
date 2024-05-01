@@ -18,7 +18,9 @@ const UpdatedAbout = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`http://localhost:5000/users?email=${user?.email}`)
+    fetch(
+      `https://social-facilites-server.vercel.app/users?email=${user?.email}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setLoggedUser(data);
@@ -60,13 +62,16 @@ const UpdatedAbout = () => {
     };
     console.log(userBody);
 
-    fetch(`http://localhost:5000/users/${loggedUser?._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userBody),
-    })
+    fetch(
+      `https://social-facilites-server.vercel.app/users/${loggedUser?._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userBody),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount == 1) {

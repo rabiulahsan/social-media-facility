@@ -8,7 +8,9 @@ const UseSingleUser = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/favourites?email=${user?.email}`)
+    fetch(
+      `https://social-facilites-server.vercel.app/favourites?email=${user?.email}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setFavouriteData(data);

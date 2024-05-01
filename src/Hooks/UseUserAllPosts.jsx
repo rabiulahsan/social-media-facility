@@ -7,7 +7,9 @@ const UseAllPosts = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/posts?email=${user?.email}`)
+    fetch(
+      `https://social-facilites-server.vercel.app/posts?email=${user?.email}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setUserPosts(data);

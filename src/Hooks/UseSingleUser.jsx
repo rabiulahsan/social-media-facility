@@ -8,7 +8,9 @@ const UseSingleUser = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users?email=${user?.email}`)
+    fetch(
+      `https://social-facilites-server.vercel.app/users?email=${user?.email}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setLoggedUser(data);

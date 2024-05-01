@@ -23,7 +23,7 @@ const GoogleSignin = () => {
             image: loggedInUser?.photoURL,
           };
           console.log(saveUser);
-          fetch("http://localhost:5000/users", {
+          fetch("https://social-facilites-server.vercel.app/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",

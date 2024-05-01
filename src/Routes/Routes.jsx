@@ -71,7 +71,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/posts/${params.id}`),
+          fetch(
+            `https://social-facilites-server.vercel.app/posts/${params.id}`
+          ),
       },
     ],
   },
