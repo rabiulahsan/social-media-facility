@@ -11,6 +11,7 @@ import UpdatedAbout from "../page/About/UpdatedAbout";
 import ResetPage from "../page/Login/ResetPage";
 import SinglePostPage from "../page/SinglePostPage/SinglePostPage";
 import PrivateRoute from "./PrivateRoute";
+import Favourites from "../page/Favourites/Favourites";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <About></About>,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/favourites",
+        element: (
+          <PrivateRoute>
+            <Favourites></Favourites>
           </PrivateRoute>
         ),
       },
