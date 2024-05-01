@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import UseSingleUser from "../../../Hooks/UseSingleUser";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import dayjs from "dayjs";
 
 const AddPost = () => {
   const [fileName, setFileName] = useState("");
@@ -47,6 +48,9 @@ const AddPost = () => {
         if (imgRes.success) {
           // creating data for post body which will be sent to database
           const imgUrl = imgRes.data.display_url;
+
+          //getting ther time
+          const now = dayjs();
           const postBody = {
             userName: loggedUser?.name,
             userEmail: loggedUser?.email,
@@ -54,6 +58,7 @@ const AddPost = () => {
             postDesc: data.postDesc,
             likes: 0,
             postImage: imgUrl,
+            postedTime: now,
           };
           console.log(postBody);
 
