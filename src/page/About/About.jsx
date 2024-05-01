@@ -7,8 +7,8 @@ import FadeAnimations from "../../Animations/FadeAnimations";
 import UseUserAllPosts from "../../Hooks/UseUserAllPosts";
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import SkeletonCard from "../../Components/SkeletonCard/SkeletonCard";
-import PostCard from "../../Shared/PostCard/PostCard";
 import Swal from "sweetalert2";
+import UsersPostCard from "./UsersPostCard";
 
 const About = () => {
   const [loggedUser, setLoggedUser] = useState([]);
@@ -160,11 +160,11 @@ const About = () => {
       <div className=" flex flex-col mx-[30%]">
         {isLoading && <SkeletonCard number={16}></SkeletonCard>}
         {sortedUserPosts?.map((post) => (
-          <PostCard
+          <UsersPostCard
             key={post?._id}
             post={post}
             handleDelete={handleDelete}
-          ></PostCard>
+          ></UsersPostCard>
         ))}
       </div>
       <Footer></Footer>

@@ -3,14 +3,16 @@
 import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 import useAuth from "../../Hooks/UseAuth";
 import UseFavourite from "../../Hooks/UseFavourite";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import MainComment from "./MainComment";
+// import MainComment from "./MainComment";
 import UseSingleUser from "../../Hooks/UseSingleUser";
+import MainComment from "../../Shared/PostCard/MainComment";
 
-const PostCard = ({ post }) => {
+const UsersPostCard = ({ post, handleDelete }) => {
   // console.log(post);
   const { user } = useAuth();
   const [loggedUser] = UseSingleUser();
@@ -156,9 +158,21 @@ const PostCard = ({ post }) => {
           />
           <p className="font-semibold">{post?.userName}</p>
         </div>
-        <Link to={`/post/${post?._id}`}>
-          <button className="blue-btn cursor-pointer">Details</button>
-        </Link>
+        <div className=" flex justify-between items-center gap-x-4">
+          {user?.email === post?.userEmail && (
+            <span
+              title="delete"
+              onClick={() => handleDelete(post?._id)}
+              className="bg-red-500 text-white text-lg font-semibold p-[11px] rounded cursor-pointer hover:bg-red-600 duration-300"
+            >
+              <MdDelete></MdDelete>
+            </span>
+          )}
+
+          <Link to={`/post/${post?._id}`}>
+            <button className="blue-btn cursor-pointer">Details</button>
+          </Link>
+        </div>
       </div>
       <div className="px-3">
         <p className="text-slate-500">{post?.postDesc}</p>
@@ -216,4 +230,4 @@ const PostCard = ({ post }) => {
   );
 };
 
-export default PostCard;
+export default UsersPostCard;
