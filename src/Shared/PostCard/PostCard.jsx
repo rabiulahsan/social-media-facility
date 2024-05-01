@@ -2,10 +2,12 @@
 
 import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import useAuth from "../../Hooks/UseAuth";
 import UseFavourite from "../../Hooks/UseFavourite";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import MainComment from "./MainComment";
 
 //todo - userimage have to be changed
 
@@ -28,6 +30,16 @@ const PostCard = ({ post }) => {
       toast.onmouseleave = Swal.resumeTimer;
     },
   });
+
+  //for comment
+  const [isComment, setIsComment] = useState(false);
+
+  const handleCommentOpen = () => {
+    setIsComment(true);
+  };
+  const handleCommentClose = () => {
+    setIsComment(false);
+  };
 
   //set default or like
   useEffect(() => {
@@ -153,27 +165,50 @@ const PostCard = ({ post }) => {
           alt=""
           className="h-[350px] w-full   rounded-xl object-contain"
         />
-        {user ? (
-          <div className="text-red-600 mt-2 px-4 flex gap-x-1 items-center">
+        <div className=" flex justify-between items-center mt-2 px-4">
+          {/* for react  */}
+          {user ? (
+            <div className="text-red-600  flex gap-x-1 items-center">
+              <span
+                onClick={isLike ? handleFavouriteDelete : handleFavourite}
+                className={`${
+                  isLike ? "text-red-600" : "text-slate-600"
+                } text-xl font-bold cursor-pointer`}
+                title="like"
+              >
+                {isLike ? <FaHeart /> : <FaRegHeart />}
+              </span>
+              <span className="text-slate-700 font-semibold text-lg">
+                {likesCount}
+              </span>
+            </div>
+          ) : (
+            <p className="text-gray-500 text-base font-semibold hover:underline hover:text-orange-400 mt-3">
+              <Link to="/login">Login to react on this</Link>
+            </p>
+          )}
+          {/* for comment  */}
+          {isComment ? (
             <span
-              onClick={isLike ? handleFavouriteDelete : handleFavourite}
-              className={`${
-                isLike ? "text-red-600" : "text-slate-600"
-              } text-xl font-bold cursor-pointer`}
-              title="like"
+              onClick={handleCommentClose}
+              className="text-slate-600 font-semibold text-2xl cursor-pointer flex items-center gap-x-2"
             >
-              {isLike ? <FaHeart /> : <FaRegHeart />}
+              <span className="text-lg hover:underline">Comments</span>{" "}
+              <IoIosArrowUp></IoIosArrowUp>
             </span>
-            <span className="text-slate-700 font-semibold text-lg">
-              {likesCount}
+          ) : (
+            <span
+              onClick={handleCommentOpen}
+              className="text-slate-600 font-semibold text-2xl cursor-pointer flex items-center gap-x-2"
+            >
+              <span className="text-lg hover:underline">Comments</span>
+              <IoIosArrowDown></IoIosArrowDown>
             </span>
-          </div>
-        ) : (
-          <p className="text-gray-500 text-base font-semibold hover:underline hover:text-orange-400 mt-3">
-            <Link to="/login">Login to react on this</Link>
-          </p>
-        )}
+          )}
+        </div>
       </div>
+
+      <MainComment id={post?._id}></MainComment>
     </div>
   );
 };
