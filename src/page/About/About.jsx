@@ -17,7 +17,7 @@ const About = () => {
       })
       .catch((error) => console.error(error));
   }, [user]);
-  console.log(loggedUser);
+  // console.log(loggedUser);
 
   // functon for logout
   const handleLogOut = () => {
