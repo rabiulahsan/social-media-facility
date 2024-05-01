@@ -1,20 +1,23 @@
+import { useState } from "react";
 import UseSingleUser from "../../../Hooks/UseSingleUser";
 import { useForm } from "react-hook-form";
 
 const AddPost = () => {
+  const [fileName, setFileName] = useState("");
   const [loggedUser] = UseSingleUser();
-  console.log(loggedUser);
+  //   console.log(loggedUser);
   const imageToken = import.meta.env.VITE_image_token;
   const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imageToken}`;
   //   console.log(imgbbUrl);
 
   //   for useform
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+
+  //get the image
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setFileName(file ? file.name : "");
+  };
 
   const onSubmit = () => {};
   return (
@@ -43,8 +46,14 @@ const AddPost = () => {
             ></textarea>
           </div>
 
+          {/* posting image  */}
           <div className="relative">
-            <input type="file" className="hidden" id="inputFile" />
+            <input
+              type="file"
+              className="hidden"
+              id="inputFile"
+              onChange={handleFileChange}
+            />
             <label
               htmlFor="inputFile"
               className="inline-block px-6 py-2 bg-sky-500 text-white font-semibold rounded cursor-pointer hover:bg-sky-600"
@@ -52,7 +61,7 @@ const AddPost = () => {
               Choose File
             </label>
             <span className=" text-slate-600 font-semibold text-base ml-5">
-              File Name
+              {fileName}
             </span>
           </div>
           <input
