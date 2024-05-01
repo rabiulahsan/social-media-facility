@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../../Shared/Navbar/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/UseAuth";
+import FadeAnimations from "../../Animations/FadeAnimations";
 import UseUserAllPosts from "../../Hooks/UseUserAllPosts";
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import SkeletonCard from "../../Components/SkeletonCard/SkeletonCard";
@@ -53,47 +54,47 @@ const About = () => {
       <div className="">
         <div className=" flex justify-around items-center mb-[3%] mx-[15%]">
           <div className="">
-            {/* <FadeAnimations
+            <FadeAnimations
               direction="right"
               once={false}
               delay={0.3}
               duration={0.5}
-            > */}
-            <div className="">
-              <p className="text-sm text-gray-500 font-semibold ">Name</p>
-              <p className=" text-lg font-bold">{loggedUser?.name}</p>
-            </div>
-            <div className="my-7">
-              <p className="text-sm text-gray-500 font-semibold mb-1">
-                College Name
-              </p>
-              <p className=" text-lg font-bold">
-                {loggedUser?.college_name
-                  ? loggedUser?.college_name
-                  : " Not Given"}
-              </p>
-            </div>
-            {/* </FadeAnimations> */}
+            >
+              <div className="">
+                <p className="text-sm text-gray-500 font-semibold ">Name</p>
+                <p className=" text-lg font-bold">{loggedUser?.name}</p>
+              </div>
+              <div className="my-7">
+                <p className="text-sm text-gray-500 font-semibold mb-1">
+                  College Name
+                </p>
+                <p className=" text-lg font-bold">
+                  {loggedUser?.college_name
+                    ? loggedUser?.college_name
+                    : " Not Given"}
+                </p>
+              </div>
+            </FadeAnimations>
           </div>
           <div className="">
-            {/* <FadeAnimations
+            <FadeAnimations
               direction="left"
               once={false}
               delay={0.3}
               duration={0.5}
-            > */}
-            <div className="">
-              <p className="text-sm text-gray-500 font-semibold ">Email</p>
-              <p className=" text-lg font-bold">{user?.email}</p>
-            </div>
+            >
+              <div className="">
+                <p className="text-sm text-gray-500 font-semibold ">Email</p>
+                <p className=" text-lg font-bold">{user?.email}</p>
+              </div>
 
-            <div className=" my-7">
-              <p className="text-sm text-gray-500 font-semibold">Address</p>
-              <p className=" text-lg font-bold">
-                {loggedUser?.address ? loggedUser?.address : " Not Given"}
-              </p>
-            </div>
-            {/* </FadeAnimations> */}
+              <div className=" my-7">
+                <p className="text-sm text-gray-500 font-semibold">Address</p>
+                <p className=" text-lg font-bold">
+                  {loggedUser?.address ? loggedUser?.address : " Not Given"}
+                </p>
+              </div>
+            </FadeAnimations>
           </div>
         </div>
       </div>

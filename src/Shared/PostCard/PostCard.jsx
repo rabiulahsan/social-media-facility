@@ -3,6 +3,7 @@
 import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 import useAuth from "../../Hooks/UseAuth";
 import UseFavourite from "../../Hooks/UseFavourite";
 import { useEffect, useState } from "react";
@@ -150,7 +151,17 @@ const PostCard = ({ post }) => {
           />
           <p className="font-semibold">{post?.userName}</p>
         </div>
-        <div className="">
+        <div className=" flex justify-between items-center gap-x-4">
+          {user?.email === post?.userEmail && (
+            <span
+              title="delete"
+              onClick={() => handleDelete(_id)}
+              className="bg-red-500 text-white text-lg font-semibold p-[11px] rounded cursor-pointer hover:bg-red-600 duration-300"
+            >
+              <MdDelete></MdDelete>
+            </span>
+          )}
+
           <Link to={`/post/${post?._id}`}>
             <button className="blue-btn cursor-pointer">Details</button>
           </Link>
