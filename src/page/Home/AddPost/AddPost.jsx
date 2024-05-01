@@ -76,9 +76,14 @@ const AddPost = () => {
             >
               Choose File
             </label>
-            <span className=" text-slate-600 font-semibold text-base ml-5">
+            <img
+              src={fileName ? "/mark.png" : "/cross.png"}
+              alt=""
+              className="w-[30px] h-[30px] object-cover inline mx-5"
+            />
+            {/* <span className=" text-slate-600 font-semibold text-base ">
               {fileName}
-            </span>
+            </span> */}
           </div>
           <input
             className="blue-btn cursor-pointer font-bold absolute bottom-0 right-0"
