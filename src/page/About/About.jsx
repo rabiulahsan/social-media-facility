@@ -76,7 +76,6 @@ const About = () => {
         })
           .then((response) => response.json())
           .then((data) => {
-            // console.log(data.data);
             if (data.deletedCount) {
               const remaining = userPosts.filter((post) => post._id !== id);
               setUserPosts(remaining);
