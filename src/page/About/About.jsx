@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../../Shared/Navbar/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/UseAuth";
+import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 
 const About = () => {
   const [loggedUser, setLoggedUser] = useState([]);
@@ -93,6 +94,7 @@ const About = () => {
           Logout
         </button>
       </div>
+      <SectionTitle heading="My posts"></SectionTitle>
       <Footer></Footer>
     </div>
   );
