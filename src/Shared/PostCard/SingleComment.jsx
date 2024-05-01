@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 const SingleComment = ({ comment }) => {
-  console.log(comment);
+  //   console.log(comment);
   return (
     <div className="bg-slate-100 text-slate-600 rounded p-4">
       <div className="flex items-center gap-x-3">

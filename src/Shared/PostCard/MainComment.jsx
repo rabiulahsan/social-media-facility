@@ -22,7 +22,29 @@ const MainComment = ({ id }) => {
   //submitting the comment
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
+    // console.log(data);
+    const commentBody = {
+      commentatorName: loggedUser?.name,
+      commentatorImage: loggedUser?.image,
+      comment: data.comment,
+      postId: id,
+    };
+    // console.log(commentBody);
+    fetch(`http://localhost:5000/comments`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(commentBody),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          reset();
+        }
+      });
+  };
   return (
     <div className="">
       <div className=" flex flex-col gap-y-5 mx-[5%]">
