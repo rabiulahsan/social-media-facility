@@ -26,7 +26,7 @@ const About = () => {
       .catch((error) => console.log(error));
   };
   return (
-    <div>
+    <div className="bg-slate-100">
       <Navbar></Navbar>
       <div className="mt-[5%] mb-[3%]">
         <img

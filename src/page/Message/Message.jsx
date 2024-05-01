@@ -5,7 +5,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 
 const Message = () => {
   return (
-    <div>
+    <div className="bg-slate-100">
       <Navbar></Navbar>
       <div className="pt-[5%] ">
         <FadeAnimations
@@ -22,8 +22,8 @@ const Message = () => {
           ></Player>
         </FadeAnimations>
 
-        <p className="text-2xl font-bold text-center mt-[2%]">
-          There is no message here
+        <p className="text-2xl text-slate-700 font-bold text-center mt-[2%]">
+          No message found here
         </p>
       </div>
       <Footer></Footer>
