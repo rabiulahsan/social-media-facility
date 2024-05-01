@@ -20,9 +20,15 @@ const MainComment = ({ id }) => {
   return (
     <div className="">
       <div className=" flex flex-col gap-y-5 mx-[5%]">
-        {commentData?.map((comment) => (
-          <SingleComment key={comment?._id} comment={comment}></SingleComment>
-        ))}
+        {commentData?.length > 0 ? (
+          commentData?.map((comment) => (
+            <SingleComment key={comment?._id} comment={comment}></SingleComment>
+          ))
+        ) : (
+          <p className="text-center font-bold text-slate-600 mb-5">
+            No comment
+          </p>
+        )}
       </div>
     </div>
   );
