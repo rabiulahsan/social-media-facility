@@ -41,6 +41,7 @@ const MainComment = ({ id }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
+          setCommentData([...commentData, commentBody]);
           reset();
         }
       });
