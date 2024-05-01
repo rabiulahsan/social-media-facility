@@ -1,25 +1,39 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import UseSingleUser from "../../../Hooks/UseSingleUser";
 import { useForm } from "react-hook-form";
 
 const AddPost = () => {
   const [fileName, setFileName] = useState("");
   const [loggedUser] = UseSingleUser();
-  //   console.log(loggedUser);
+  const fileInputRef = useRef(null);
+
   const imageToken = import.meta.env.VITE_image_token;
-  const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imageToken}`;
-  //   console.log(imgbbUrl);
+  const imageHostingUrl = `https://api.imgbb.com/1/upload?key=${imageToken}`;
 
   //   for useform
   const { register, handleSubmit, reset } = useForm();
 
-  //get the image
+  //get the image and display the file name
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setFileName(file ? file.name : "");
   };
 
-  const onSubmit = () => {};
+  const onSubmit = (data) => {
+    const imageData = new FormData();
+    imageData.append("image", fileInputRef.current.files[0]);
+    fetch(imageHostingUrl, {
+      method: "POST",
+      body: imageData,
+    })
+      .then((res) => res.json())
+      .then((imgRes) => {
+        if (imgRes.success) {
+          const imgUrl = imgRes.data;
+          console.log(imgUrl.display_url);
+        }
+      });
+  };
   return (
     <div className="bg-white p-5 rounded-lg mx-[30%] my-[5%]">
       {/* details of user  */}
@@ -53,6 +67,8 @@ const AddPost = () => {
               className="hidden"
               id="inputFile"
               onChange={handleFileChange}
+              ref={fileInputRef}
+              //   {...register("image")}
             />
             <label
               htmlFor="inputFile"
