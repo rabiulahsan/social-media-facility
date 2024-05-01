@@ -5,7 +5,7 @@ const UseAllPosts = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/posts")
+    fetch("http://localhost:5000/allposts")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);

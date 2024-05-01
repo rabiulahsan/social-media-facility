@@ -3,12 +3,26 @@ import { useEffect, useState } from "react";
 import Navbar from "../../Shared/Navbar/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import useAuth from "../../Hooks/UseAuth";
+import UseUserAllPosts from "../../Hooks/UseUserAllPosts";
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
+import SkeletonCard from "../../Components/SkeletonCard/SkeletonCard";
+import PostCard from "../../Shared/PostCard/PostCard";
 
 const About = () => {
   const [loggedUser, setLoggedUser] = useState([]);
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
+  const [userPosts, isLoading] = UseUserAllPosts();
+  // console.log(userPosts);
+  // sorted posts
+  const sortedUserPosts = userPosts.slice().sort((a, b) => {
+    // Convert the postedTime strings to Date objects for comparison
+    const dateA = new Date(a.postedTime);
+    const dateB = new Date(b.postedTime);
+
+    // Sort by descending order of postedTime
+    return dateB - dateA;
+  });
 
   useEffect(() => {
     fetch(`http://localhost:5000/users?email=${user?.email}`)
@@ -95,6 +109,12 @@ const About = () => {
         </button>
       </div>
       <SectionTitle heading="My posts"></SectionTitle>
+      <div className=" flex flex-col mx-[30%]">
+        {isLoading && <SkeletonCard number={16}></SkeletonCard>}
+        {sortedUserPosts?.map((post) => (
+          <PostCard key={post?._id} post={post}></PostCard>
+        ))}
+      </div>
       <Footer></Footer>
     </div>
   );
