@@ -8,12 +8,13 @@ import UseUserAllPosts from "../../Hooks/UseUserAllPosts";
 import SectionTitle from "../../Components/SectionTitle/SectionTitle";
 import SkeletonCard from "../../Components/SkeletonCard/SkeletonCard";
 import PostCard from "../../Shared/PostCard/PostCard";
+import Swal from "sweetalert2";
 
 const About = () => {
   const [loggedUser, setLoggedUser] = useState([]);
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
-  const [userPosts, isLoading] = UseUserAllPosts();
+  const [userPosts, setUserPosts, isLoading] = UseUserAllPosts();
   // console.log(userPosts);
   // sorted posts
   const sortedUserPosts = userPosts.slice().sort((a, b) => {
@@ -23,6 +24,19 @@ const About = () => {
 
     // Sort by descending order of postedTime
     return dateB - dateA;
+  });
+
+  // for swal notification
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
   });
 
   useEffect(() => {
@@ -40,6 +54,40 @@ const About = () => {
     logOut()
       .then(navigate("/"))
       .catch((error) => console.log(error));
+  };
+
+  // for deleting a post
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/posts/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // console.log(data.data);
+            if (data.deletedCount) {
+              const remaining = userPosts.filter((post) => post._id !== id);
+              setUserPosts(remaining);
+              Toast.fire({
+                icon: "success",
+                title: "Post deleted successfully",
+              });
+            }
+          });
+      }
+    });
   };
   return (
     <div className="bg-slate-100">
@@ -113,7 +161,11 @@ const About = () => {
       <div className=" flex flex-col mx-[30%]">
         {isLoading && <SkeletonCard number={16}></SkeletonCard>}
         {sortedUserPosts?.map((post) => (
-          <PostCard key={post?._id} post={post}></PostCard>
+          <PostCard
+            key={post?._id}
+            post={post}
+            handleDelete={handleDelete}
+          ></PostCard>
         ))}
       </div>
       <Footer></Footer>

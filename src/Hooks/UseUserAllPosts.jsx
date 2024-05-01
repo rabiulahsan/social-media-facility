@@ -15,7 +15,7 @@ const UseAllPosts = () => {
       })
       .catch((error) => console.error(error));
   }, [user]);
-  return [userPosts, isLoading];
+  return [userPosts, setUserPosts, isLoading];
 };
 
 export default UseAllPosts;

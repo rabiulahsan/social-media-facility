@@ -12,7 +12,7 @@ import MainComment from "./MainComment";
 
 //todo - userimage have to be changed
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, handleDelete }) => {
   // console.log(post);
   const { user } = useAuth();
   const [isLike, setIsLike] = useState(false);
@@ -140,6 +140,7 @@ const PostCard = ({ post }) => {
         }
       });
   };
+
   return (
     <div className="bg-white rounded-xl p-5 mb-5">
       <div className=" flex justify-between mb-4">
@@ -155,7 +156,7 @@ const PostCard = ({ post }) => {
           {user?.email === post?.userEmail && (
             <span
               title="delete"
-              onClick={() => handleDelete(_id)}
+              onClick={() => handleDelete(post?._id)}
               className="bg-red-500 text-white text-lg font-semibold p-[11px] rounded cursor-pointer hover:bg-red-600 duration-300"
             >
               <MdDelete></MdDelete>
