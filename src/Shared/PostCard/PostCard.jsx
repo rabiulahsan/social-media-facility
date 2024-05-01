@@ -7,6 +7,8 @@ import UseFavourite from "../../Hooks/UseFavourite";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
+//todo - userimage have to be changed
+
 const PostCard = ({ post }) => {
   // console.log(post);
   const { user } = useAuth();
@@ -149,10 +151,10 @@ const PostCard = ({ post }) => {
         <img
           src={post?.postImage}
           alt=""
-          className="h-[350px] w-full   rounded-xl object-cover"
+          className="h-[350px] w-full   rounded-xl object-contain"
         />
         {user ? (
-          <div className="text-red-600 mt-3 px-4 flex gap-x-1 items-center">
+          <div className="text-red-600 mt-2 px-4 flex gap-x-1 items-center">
             <span
               onClick={isLike ? handleFavouriteDelete : handleFavourite}
               className={`${
