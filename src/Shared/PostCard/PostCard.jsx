@@ -137,9 +137,9 @@ const PostCard = ({ post }) => {
           <p className="font-semibold">{post?.userName}</p>
         </div>
         <div className="">
-          <button className="blue-btn cursor-pointer">
-            <Link to={`/post/${post?._id}`}>Details</Link>
-          </button>
+          <Link to={`/post/${post?._id}`}>
+            <button className="blue-btn cursor-pointer">Details</button>
+          </Link>
         </div>
       </div>
       <div className="px-3">
