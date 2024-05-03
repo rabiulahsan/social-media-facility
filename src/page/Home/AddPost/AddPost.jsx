@@ -3,8 +3,11 @@ import UseSingleUser from "../../../Hooks/UseSingleUser";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import dayjs from "dayjs";
+import useAuth from "../../../Hooks/UseAuth";
+import { Link } from "react-router-dom";
 
 const AddPost = () => {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState("");
   const [loggedUser] = UseSingleUser();
@@ -142,14 +145,20 @@ const AddPost = () => {
                 />
               )}
             </div>
-            <input
-              className={`blue-btn cursor-pointer ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              type="submit"
-              value="Post"
-              disabled={loading}
-            />
+            {user ? (
+              <input
+                className={`blue-btn cursor-pointer ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                type="submit"
+                value="Post"
+                disabled={loading}
+              />
+            ) : (
+              <p className="text-slate-600 font-semibold hover:text-orange-600 hover:underline text-sm">
+                <Link to="/login">Log in to post</Link>
+              </p>
+            )}
           </div>
         </form>
       </div>
