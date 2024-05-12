@@ -12,3 +12,7 @@
 .input-style {
   @apply shadow-md  border rounded w-3/4 py-2 px-4 text-gray-700 leading-tight input  border-slate-300 focus:outline-none bg-slate-100;
 }
+
+.active-sidebar {
+  @apply bg-slate-200;
+}

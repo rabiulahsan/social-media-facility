@@ -59,7 +59,7 @@ const Sidebar = () => {
       <p className="font-bold text-slate-600 text-xl text-center p-4 border border-b-slate-400">
         All Chats
       </p>
-      <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-2 px-4">
+      <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-2 px-4 mt-2">
         {users?.map((user, idx) => (
           <SingleChat key={idx} user={user}></SingleChat>
         ))}

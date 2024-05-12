@@ -5,7 +5,7 @@ const ActiveSidebar = ({ to, children }) => {
   return (
     <NavLink
       to={to}
-      className={({ isActive }) => (isActive ? "hover:bg-slate-200" : "")}
+      className={({ isActive }) => (isActive ? "active-sidebar" : "")}
     >
       {children}
     </NavLink>

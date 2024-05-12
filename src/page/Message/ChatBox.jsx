@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { IoCallSharp } from "react-icons/io5";
 import { IoIosSend } from "react-icons/io";
+import { useParams } from "react-router-dom";
 const ChatBox = () => {
   const [typingMessage, setTypingMessage] = useState("");
   const messagesEndRef = useRef(null);
+
+  const paramId = useParams().id;
+  console.log(paramId);
   const handleSubmit = (e) => {
     e.preventDefault();
   };
