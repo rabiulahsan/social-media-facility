@@ -4,13 +4,13 @@ import Sidebar from "./Sidebar";
 
 const Message = () => {
   return (
-    <div className="bg-slate-200 h-screen flex flex-col">
+    <div className="bg-slate-100 h-screen flex flex-col">
       <Navbar></Navbar>
-      <div className=" flex w-full gap-x-5 p-[3%]   flex-[100%]">
+      <div className=" flex w-full gap-x-6 p-[2%]   flex-[100%]">
         <div className="w-1/4">
           <Sidebar></Sidebar>
         </div>
-        <div className="3/4">
+        <div className="w-3/4">
           <ChatBox></ChatBox>
         </div>
       </div>
