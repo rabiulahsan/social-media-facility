@@ -108,12 +108,14 @@ const ChatBox = () => {
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`${
-                message.senderId === userId ? "text-right" : "text-left"
+              className={`my-3 ${
+                message.senderId === userId
+                  ? "flex justify-end"
+                  : "flex justify-start"
               }`}
             >
               <p
-                className={`rounded-sm p-3 w-fit my-3 ${
+                className={`rounded-sm p-3 ${
                   message.senderId === userId
                     ? "bg-slate-600 text-slate-200"
                     : "bg-white text-slate-600"
