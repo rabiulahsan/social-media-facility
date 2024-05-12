@@ -60,6 +60,26 @@ const ChatBox = () => {
       text: "Shining so brightly",
       senderId: 2222,
     },
+    {
+      id: 11,
+      text: "Underneath the tree",
+      senderId: 1111,
+    },
+    {
+      id: 12,
+      text: "With a gentle breeze",
+      senderId: 2222,
+    },
+    {
+      id: 13,
+      text: "And the stars above",
+      senderId: 1111,
+    },
+    {
+      id: 14,
+      text: "Shining so brightly",
+      senderId: 2222,
+    },
   ];
 
   //   for bottom down  after the message
@@ -68,9 +88,9 @@ const ChatBox = () => {
   });
 
   return (
-    <div className="bg-slate-200 rounded h-full flex flex-col">
+    <div className="bg-slate-200 rounded h-[590px] flex flex-col   ">
       {/* Header */}
-      <div className="flex justify-between items-center bg-white px-5 py-2 z-10">
+      <div className="flex justify-between items-center bg-white px-5 py-2 z-10 sticky top-0">
         <div className="flex items-center gap-x-4">
           <img src="" alt="" className="rounded-full h-[35px] w-[35px]" />
           <p className="font-bold text-xl text-slate-600">Name</p>
@@ -83,8 +103,8 @@ const ChatBox = () => {
       </div>
 
       {/* Message Container */}
-      <div className="overflow-y-auto h-[460px]">
-        <div className="my-4 px-[4%]">
+      <div className="overflow-y-auto max-h-screen">
+        <div className="my-4 px-[4%] ">
           {messages.map((message) => (
             <div
               key={message.id}
@@ -108,7 +128,7 @@ const ChatBox = () => {
       </div>
 
       {/* Form */}
-      <div className="mt-auto px-[5%] my-3 z-10">
+      <div className="mt-auto px-[5%] my-3 z-10 sticky bottom-4">
         <form
           onSubmit={handleSubmit}
           className="flex justify-center items-center"
