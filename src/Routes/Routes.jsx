@@ -13,6 +13,7 @@ import SinglePostPage from "../page/SinglePostPage/SinglePostPage";
 import PrivateRoute from "./PrivateRoute";
 import Favourites from "../page/Favourites/Favourites";
 import MessageLayout from "../Layout/MessageLayout";
+import ChatBox from "../page/Message/ChatBox";
 
 export const router = createBrowserRouter([
   {
@@ -89,6 +90,10 @@ export const router = createBrowserRouter([
       {
         path: "/message",
         element: <Message></Message>,
+      },
+      {
+        path: "/message/:id",
+        element: <ChatBox></ChatBox>,
       },
     ],
   },
