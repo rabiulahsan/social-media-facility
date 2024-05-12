@@ -34,11 +34,11 @@ const Navbar = () => {
                   <ActiveLink to="/favourites">Favourites</ActiveLink>
                 </span>
               </li>
-              <li className="mx-5 hover:text-sky-500">
+              {/* <li className="mx-5 hover:text-sky-500">
                 <span>
                   <ActiveLink to="/about">About</ActiveLink>
                 </span>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="flex items-center gap-x-4">

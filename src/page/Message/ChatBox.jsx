@@ -92,7 +92,11 @@ const ChatBox = () => {
       {/* Header */}
       <div className="flex justify-between items-center bg-white px-5 py-2 z-10 sticky top-0">
         <div className="flex items-center gap-x-4">
-          <img src="" alt="" className="rounded-full h-[35px] w-[35px]" />
+          <img
+            src=""
+            alt=""
+            className="rounded-full h-[35px] w-[35px] object-cover"
+          />
           <p className="font-bold text-xl text-slate-600">Name</p>
         </div>
         <div className="flex items-center gap-x-4 text-slate-400 pr-[2%] text-xl ">
