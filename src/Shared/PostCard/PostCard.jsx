@@ -11,10 +11,10 @@ import MainComment from "./MainComment";
 import UseSingleUser from "../../Hooks/UseSingleUser";
 
 const PostCard = ({ post }) => {
-  // console.log(post);
+  console.log(post);
   const { user } = useAuth();
   const [loggedUser] = UseSingleUser();
-  console.log(loggedUser);
+  // console.log(loggedUser);
   const [isLike, setIsLike] = useState(false);
   const [favouriteData] = UseFavourite();
   const [likesCount, setLikesCount] = useState(post?.likes);

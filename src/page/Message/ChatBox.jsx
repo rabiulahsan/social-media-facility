@@ -123,7 +123,7 @@ const ChatBox = () => {
               }`}
             >
               <p
-                className={`rounded-sm p-3 ${
+                className={`rounded p-3 ${
                   message.senderId === userId
                     ? "bg-slate-600 text-slate-200"
                     : "bg-white text-slate-600"
