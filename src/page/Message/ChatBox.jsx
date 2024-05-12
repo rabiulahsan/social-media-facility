@@ -2,16 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import { IoCallSharp } from "react-icons/io5";
 import { IoIosSend } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import { io } from "socket.io-client";
+
 const ChatBox = () => {
   const [typingMessage, setTypingMessage] = useState("");
   const messagesEndRef = useRef(null);
+  const userId = 2222;
 
   const paramId = useParams().id;
   console.log(paramId);
+
+  const socket = io("http://localhost:5000");
+  useEffect(() => {}, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    socket.emit("send", typingMessage);
   };
-  const userId = 2222;
 
   const messages = [
     {

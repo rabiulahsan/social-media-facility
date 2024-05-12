@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import ActiveSidebar from "../../Components/ActiveSidebar/ActiveSidebar";
 const SingleChat = ({ user }) => {
-  console.log(user);
+  // console.log(user);
   return (
     <ActiveSidebar to={`/message/${user?._id}`}>
       <div className="rounded p-3 flex items-center gap-x-4 hover:bg-slate-200 cursor-pointer">
