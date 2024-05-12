@@ -3,14 +3,30 @@ import { IoCallSharp } from "react-icons/io5";
 import { IoIosSend } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
+import UseSingleUser from "../../Hooks/UseSingleUser";
+import dayjs from "dayjs";
 
 const ChatBox = () => {
+  const [loggedUser] = UseSingleUser();
   const [typingMessage, setTypingMessage] = useState("");
   const messagesEndRef = useRef(null);
-  const userId = 2222;
+  const [chat, setChat] = useState([]);
 
-  const paramId = useParams().id;
-  console.log(paramId);
+  const userId = useParams().id;
+  // console.log(userId);
+
+  useEffect(() => {
+    fetch(
+      `http://localhost:5000/chats?loggedUserId=${loggedUser?._id}&userId=${userId}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setChat(data);
+      })
+      .catch((error) => console.error(error));
+  }, [loggedUser, userId]);
+
+  // console.log(chat);
 
   const socket = io("http://localhost:5000");
   useEffect(() => {}, []);
@@ -18,81 +34,36 @@ const ChatBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    socket.emit("send", typingMessage);
-  };
+    // Get the current time and format it with AM/PM indication
+    const formattedTime = dayjs().format("h:mm A");
 
-  const messages = [
-    {
-      id: 1,
-      text: "The quick brown fox",
-      senderId: 1111,
-    },
-    {
-      id: 2,
-      text: "Jumped over the fence",
-      senderId: 2222,
-    },
-    {
-      id: 3,
-      text: "And ate some grapes",
-      senderId: 1111,
-    },
-    {
-      id: 4,
-      text: "He was very hungry",
-      senderId: 2222,
-    },
-    {
-      id: 5,
-      text: "But then he was full",
-      senderId: 1111,
-    },
-    {
-      id: 6,
-      text: "So he went to sleep",
-      senderId: 2222,
-    },
-    {
-      id: 7,
-      text: "Underneath the tree",
-      senderId: 1111,
-    },
-    {
-      id: 8,
-      text: "With a gentle breeze",
-      senderId: 2222,
-    },
-    {
-      id: 9,
-      text: "And the stars above",
-      senderId: 1111,
-    },
-    {
-      id: 10,
-      text: "Shining so brightly",
-      senderId: 2222,
-    },
-    {
-      id: 11,
-      text: "Underneath the tree",
-      senderId: 1111,
-    },
-    {
-      id: 12,
-      text: "With a gentle breeze",
-      senderId: 2222,
-    },
-    {
-      id: 13,
-      text: "And the stars above",
-      senderId: 1111,
-    },
-    {
-      id: 14,
-      text: "Shining so brightly",
-      senderId: 2222,
-    },
-  ];
+    // console.log(formattedTime);
+
+    const messageBody = {
+      senderId: loggedUser?._id,
+      text: typingMessage,
+      time: formattedTime,
+      chatId: chat?._id,
+    };
+    // console.log(messageBody);
+
+    //   posting it to database
+    fetch("http://localhost:5000/messages", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(messageBody),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          setTypingMessage("");
+        }
+      });
+
+    // socket.emit("send", typingMessage);
+  };
 
   //   for bottom down  after the message
   useEffect(() => {
@@ -119,7 +90,7 @@ const ChatBox = () => {
       </div>
 
       {/* Message Container */}
-      <div className="overflow-y-auto max-h-screen">
+      {/* <div className="overflow-y-auto max-h-screen">
         <div className="my-4 px-[4%] ">
           {messages.map((message) => (
             <div
@@ -143,7 +114,7 @@ const ChatBox = () => {
           ))}
           <div ref={messagesEndRef} />
         </div>
-      </div>
+      </div> */}
 
       {/* Form */}
       <div className="mt-auto px-[5%] py-3 z-10 sticky top-3">

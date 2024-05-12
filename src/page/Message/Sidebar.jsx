@@ -4,7 +4,7 @@ import UseSingleUser from "../../Hooks/UseSingleUser";
 
 const Sidebar = () => {
   const [loggedUser] = UseSingleUser();
-  // console.log(loggedUser);
+  // console.log(loggedUser?._id);
   const [myChat, setMyChat] = useState([]);
 
   useEffect(() => {
