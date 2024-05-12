@@ -12,6 +12,7 @@ import ResetPage from "../page/Login/ResetPage";
 import SinglePostPage from "../page/SinglePostPage/SinglePostPage";
 import PrivateRoute from "./PrivateRoute";
 import Favourites from "../page/Favourites/Favourites";
+import MessageLayout from "../Layout/MessageLayout";
 
 export const router = createBrowserRouter([
   {
@@ -35,10 +36,7 @@ export const router = createBrowserRouter([
         path: "/media",
         element: <Media></Media>,
       },
-      {
-        path: "/message",
-        element: <Message></Message>,
-      },
+
       {
         path: "/about",
         element: (
@@ -74,6 +72,23 @@ export const router = createBrowserRouter([
           fetch(
             `https://social-facilites-server.vercel.app/posts/${params.id}`
           ),
+      },
+    ],
+  },
+
+  //layout for dashboard
+  {
+    path: "/message",
+    element: (
+      <PrivateRoute>
+        <MessageLayout></MessageLayout>
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "/message",
+        element: <Message></Message>,
       },
     ],
   },
