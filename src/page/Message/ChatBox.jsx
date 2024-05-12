@@ -138,7 +138,7 @@ const ChatBox = () => {
       </div>
 
       {/* Form */}
-      <div className="mt-auto px-[5%] my-3 z-10 sticky bottom-4">
+      <div className="mt-auto px-[5%] py-3 z-10 sticky top-3">
         <form
           onSubmit={handleSubmit}
           className="flex justify-center items-center"
