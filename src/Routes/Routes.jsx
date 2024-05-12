@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
     ],
   },
 
-  //layout for dashboard
+  //layout for message
   {
     path: "/message",
     element: (
@@ -89,12 +89,24 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/message",
-        element: <Message></Message>,
+        element: (
+          <PrivateRoute>
+            <Message></Message>,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/message/:id",
-        element: <ChatBox></ChatBox>,
+        element: (
+          <PrivateRoute>
+            <ChatBox></ChatBox>,
+          </PrivateRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>,
   },
 ]);
