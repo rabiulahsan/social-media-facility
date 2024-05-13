@@ -49,10 +49,11 @@ const Sidebar = () => {
   const filteredSearchData = searchData?.filter(
     (user) => user?._id !== loggedUser?._id
   );
+  console.log(filteredSearchData);
 
   //handle create chat on clicking users and pass it to SearchSingleChat
   const handleCreateChat = (id) => {
-    console.log(id);
+    // console.log(id);
 
     const chatBody = {
       loggedUserId: loggedUser?._id,
@@ -71,11 +72,15 @@ const Sidebar = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setMyChat([...myChat, newChat]);
+        if (data.userId === id) {
+          console.log(data);
+          navigate(`/message/${id}`);
+        } else {
+          navigate(`/message/${id}`);
+          setMyChat([...myChat, newChat]);
+        }
         setSearching(false);
         setSearchValue("");
-        navigate(`/message/${id}`);
       });
   };
 
