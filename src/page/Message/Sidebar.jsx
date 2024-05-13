@@ -3,6 +3,7 @@ import SingleChat from "./SingleChat";
 import UseSingleUser from "../../Hooks/UseSingleUser";
 import { IoSearch, IoArrowBack } from "react-icons/io5";
 import SearchSingleChat from "./SearchSingleChat";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [loggedUser] = UseSingleUser();
@@ -11,6 +12,7 @@ const Sidebar = () => {
   const [searchValue, setSearchValue] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [searching, setSearching] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:5000/chats/${loggedUser?._id}`)
@@ -47,6 +49,35 @@ const Sidebar = () => {
   const filteredSearchData = searchData?.filter(
     (user) => user?._id !== loggedUser?._id
   );
+
+  //handle create chat on clicking users and pass it to SearchSingleChat
+  const handleCreateChat = (id) => {
+    console.log(id);
+
+    const chatBody = {
+      loggedUserId: loggedUser?._id,
+      userId: id,
+    };
+    // console.log(chatBody);
+    const newChat = { users: [loggedUser?._id, id] };
+
+    //   posting it to database
+    fetch("http://localhost:5000/chats", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(chatBody),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setMyChat([...myChat, newChat]);
+        setSearching(false);
+        setSearchValue("");
+        navigate(`/message/${id}`);
+      });
+  };
 
   // console.log(filteredSearchData);
   return (
@@ -90,9 +121,7 @@ const Sidebar = () => {
                 <SearchSingleChat
                   key={idx}
                   user={user}
-                  setSearching={setSearching}
-                  setSearchValue={setSearchValue}
-                  setMyChat={setMyChat}
+                  handleCreateChat={handleCreateChat}
                 ></SearchSingleChat>
               ))}
             </div>
