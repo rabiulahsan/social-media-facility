@@ -11,7 +11,6 @@ const MessageLayout = () => {
           <Sidebar></Sidebar>
         </div>
         <div className="w-[70%]">
-          {/* <ChatBox></ChatBox> */}
           <Outlet></Outlet>
         </div>
       </div>

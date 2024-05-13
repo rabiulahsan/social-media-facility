@@ -99,7 +99,7 @@ export const router = createBrowserRouter([
         path: "/message/:id",
         element: (
           <PrivateRoute>
-            <ChatBox></ChatBox>,
+            <ChatBox></ChatBox>
           </PrivateRoute>
         ),
       },
