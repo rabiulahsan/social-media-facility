@@ -21,7 +21,7 @@ const Sidebar = () => {
       .catch((error) => console.error(error));
   }, [loggedUser]);
 
-  // console.log(myChat);
+  console.log(myChat);
 
   //handle search back button
   const handleSearchBack = () => {
@@ -51,12 +51,15 @@ const Sidebar = () => {
           onSubmit={handleSearch}
           className="flex justify-center items-center relative"
         >
-          <span
-            onClick={handleSearchBack}
-            className="bg-slate-100 hover:bg-slate-200 p-3 mr-4 text-slate-600 text-lg cursor-pointer rounded-full"
-          >
-            <IoArrowBack></IoArrowBack>
-          </span>
+          {searching && (
+            <span
+              onClick={handleSearchBack}
+              className="bg-slate-100 hover:bg-slate-200 p-3 mr-4 text-slate-600 text-lg cursor-pointer rounded-full"
+            >
+              <IoArrowBack></IoArrowBack>
+            </span>
+          )}
+
           <input
             className="rounded-3xl py-2 px-5 w-[100%] text-gray-600 focus:outline-none bg-slate-200"
             type="text"
@@ -75,7 +78,7 @@ const Sidebar = () => {
             Search results
           </p>
           <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
-            {myChat?.map((user, idx) => (
+            {searchData?.map((user, idx) => (
               // <SingleChat key={idx} user={user}></SingleChat>
               <SearchSingleChat
                 key={idx}
