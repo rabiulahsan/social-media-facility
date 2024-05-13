@@ -17,7 +17,7 @@ const SingleChat = ({ user }) => {
       })
       .catch((error) => console.error(error));
   }, [chatUserId]);
-  console.log(chatUser);
+  // console.log(chatUser);
 
   return (
     <ActiveSidebar to={`/message/${chatUser?._id}`}>

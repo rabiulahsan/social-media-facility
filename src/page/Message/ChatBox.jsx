@@ -40,8 +40,8 @@ const ChatBox = () => {
   }, [chat]);
   console.log(messages);
 
-  const socket = io("http://localhost:5000");
-  useEffect(() => {}, []);
+  // const socket = io("http://localhost:5000");
+  // useEffect(() => {}, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,6 +72,7 @@ const ChatBox = () => {
       .then((data) => {
         if (data.insertedId) {
           setTypingMessage("");
+          console.log(messageBody);
         }
       });
 
@@ -103,20 +104,20 @@ const ChatBox = () => {
       </div>
 
       {/* Message Container */}
-      {/* <div className="overflow-y-auto max-h-screen">
+      <div className="overflow-y-auto max-h-screen">
         <div className="my-4 px-[4%] ">
-          {messages.map((message) => (
+          {messages?.map((message) => (
             <div
-              key={message.id}
+              key={message._id}
               className={`my-3 ${
-                message.senderId === userId
+                message.senderId === loggedUser?._id
                   ? "flex justify-end"
                   : "flex justify-start"
               }`}
             >
               <p
                 className={`rounded p-3 ${
-                  message.senderId === userId
+                  message.senderId === loggedUser?._id
                     ? "bg-slate-600 text-slate-200"
                     : "bg-white text-slate-600"
                 }`}
@@ -127,7 +128,7 @@ const ChatBox = () => {
           ))}
           <div ref={messagesEndRef} />
         </div>
-      </div> */}
+      </div>
 
       {/* Form */}
       <div className="mt-auto px-[5%] py-3 z-10 sticky top-3">
