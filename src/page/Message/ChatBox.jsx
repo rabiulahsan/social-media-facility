@@ -13,11 +13,20 @@ const ChatBox = () => {
   const messagesEndRef = useRef(null);
   const [chat, setChat] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [chatUserDetails, setChatUserDetails] = useState([]);
 
   const userId = useParams().id;
   // console.log(userId);
 
-  //todo getting details for chat users
+  // getting details for chat users
+  useEffect(() => {
+    fetch(`http://localhost:5000/allusers/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setChatUserDetails(data);
+      })
+      .catch((error) => console.error(error));
+  }, [userId]);
 
   // finding there is chat or not
   useEffect(() => {
@@ -95,11 +104,13 @@ const ChatBox = () => {
       <div className="flex justify-between items-center bg-white px-5 py-2 z-10 sticky top-0">
         <div className="flex items-center gap-x-4">
           <img
-            src=""
+            src={chatUserDetails?.image}
             alt=""
-            className="rounded-full h-[35px] w-[35px] object-cover"
+            className="rounded-full h-[30px] w-[30px] object-cover"
           />
-          <p className="font-bold text-xl text-slate-600">Name</p>
+          <p className="font-bold text-lg text-slate-600">
+            {chatUserDetails?.name}
+          </p>
         </div>
         <div className="flex items-center gap-x-4 text-slate-400 pr-[2%] text-xl ">
           <span className="hover:text-slate-500 cursor-pointer">
