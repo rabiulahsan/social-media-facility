@@ -11,6 +11,7 @@ const ChatBox = () => {
   const [typingMessage, setTypingMessage] = useState("");
   const messagesEndRef = useRef(null);
   const [chat, setChat] = useState([]);
+  const [messages, setMessages] = useState([]);
 
   const userId = useParams().id;
   // console.log(userId);
@@ -26,7 +27,18 @@ const ChatBox = () => {
       .catch((error) => console.error(error));
   }, [loggedUser, userId]);
 
-  // console.log(chat);
+  // console.log(chat?._id);
+
+  //getting all message for this chat id
+  useEffect(() => {
+    fetch(`http://localhost:5000/messages/${chat?._id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages(data);
+      })
+      .catch((error) => console.error(error));
+  }, [chat]);
+  console.log(messages);
 
   const socket = io("http://localhost:5000");
   useEffect(() => {}, []);
@@ -35,14 +47,15 @@ const ChatBox = () => {
     e.preventDefault();
 
     // Get the current time and format it with AM/PM indication
-    const formattedTime = dayjs().format("h:mm A");
+    const time = dayjs();
+    // const formatttimeedTime = dayjs().format("h:mm A");
 
     // console.log(formattedTime);
 
     const messageBody = {
       senderId: loggedUser?._id,
       text: typingMessage,
-      time: formattedTime,
+      time: time,
       chatId: chat?._id,
     };
     // console.log(messageBody);
