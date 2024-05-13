@@ -7,6 +7,8 @@ import UseSingleUser from "../../Hooks/UseSingleUser";
 import dayjs from "dayjs";
 import { Player } from "@lottiefiles/react-lottie-player";
 
+var socket, selectedChat;
+
 const ChatBox = () => {
   const [loggedUser] = UseSingleUser();
   const [typingMessage, setTypingMessage] = useState("");
@@ -14,9 +16,22 @@ const ChatBox = () => {
   const [chat, setChat] = useState([]);
   const [messages, setMessages] = useState([]);
   const [chatUserDetails, setChatUserDetails] = useState([]);
+  const [socketConnected, setSocketConnected] = useState(false);
 
   const userId = useParams().id;
   // console.log(userId);
+
+  useEffect(() => {
+    socket = io("http://localhost:5000");
+    socket.emit("setup", userId);
+    socket.on("connected", () => setSocketConnected(true));
+    socket.emit("join-room", userId);
+    socket.on("receive-message", (receivedMessage) => {
+      console.log(receivedMessage);
+      // Update the messages state with the received message
+      setMessages([...messages, receivedMessage]);
+    });
+  }, [userId, messages]);
 
   // getting details for chat users
   useEffect(() => {
@@ -53,9 +68,6 @@ const ChatBox = () => {
   }, [chat]);
   // console.log(messages);
 
-  // const socket = io("http://localhost:5000");
-  // useEffect(() => {}, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -73,6 +85,7 @@ const ChatBox = () => {
     };
     console.log(messageBody);
 
+    socket.emit("new-message", messageBody);
     //   posting it to database
     fetch("http://localhost:5000/messages", {
       method: "POST",
