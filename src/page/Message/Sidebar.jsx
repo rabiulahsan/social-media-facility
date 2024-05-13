@@ -81,7 +81,7 @@ const Sidebar = () => {
 
   // console.log(filteredSearchData);
   return (
-    <div className="bg-white rounded  h-full ">
+    <div className="bg-white rounded  h-[590px] ">
       {/* form for searching user  */}
       <div className=" px-12 pt-5 pb-4 ">
         <form
@@ -115,7 +115,7 @@ const Sidebar = () => {
             Search results
           </p>
           {filteredSearchData?.length > 0 ? (
-            <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
+            <div className="flex flex-col gap-y-2 overflow-y-auto max-h-screen py-4 px-5 mt-2">
               {filteredSearchData?.map((user, idx) => (
                 // <SingleChat key={idx} user={user}></SingleChat>
                 <SearchSingleChat
@@ -137,7 +137,7 @@ const Sidebar = () => {
           <p className="font-bold text-slate-600 text-xl text-center p-4 border-b border-b-slate-200">
             All Chats
           </p>
-          <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
+          <div className="flex flex-col gap-y-2 overflow-y-auto max-h-screen  py-4 px-5 mt-2">
             {myChat?.map((user, idx) => (
               <SingleChat key={idx} user={user}></SingleChat>
             ))}
