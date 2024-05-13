@@ -62,7 +62,7 @@ const ChatBox = () => {
       time: time,
       chatId: chat?._id,
     };
-    // console.log(messageBody);
+    console.log(messageBody);
 
     //   posting it to database
     fetch("http://localhost:5000/messages", {
