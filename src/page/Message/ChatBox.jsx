@@ -72,6 +72,7 @@ const ChatBox = () => {
       .then((data) => {
         if (data.insertedId) {
           setTypingMessage("");
+          setMessages([...messages, messageBody]);
           console.log(messageBody);
         }
       });
