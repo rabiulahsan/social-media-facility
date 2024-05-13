@@ -16,6 +16,7 @@ const ChatBox = () => {
   const userId = useParams().id;
   // console.log(userId);
 
+  // finding there is chat or not
   useEffect(() => {
     fetch(
       `http://localhost:5000/chats?loggedUserId=${loggedUser?._id}&userId=${userId}`

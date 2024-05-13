@@ -21,7 +21,7 @@ const Sidebar = () => {
       .catch((error) => console.error(error));
   }, [loggedUser]);
 
-  console.log(myChat);
+  // console.log(myChat);
 
   //handle search back button
   const handleSearchBack = () => {
@@ -32,7 +32,7 @@ const Sidebar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     setSearching(true);
-    console.log(searchValue);
+    // console.log(searchValue);
 
     // fetching data for search value and set them on search data
     fetch(`http://localhost:5000/chatusers?value=${searchValue}`)
@@ -41,8 +41,14 @@ const Sidebar = () => {
         setSearchData(data);
       });
   };
-  console.log(searchData);
+  // console.log(searchData);
 
+  // filter search data for user
+  const filteredSearchData = searchData?.filter(
+    (user) => user?._id !== loggedUser?._id
+  );
+
+  // console.log(filteredSearchData);
   return (
     <div className="bg-white rounded  h-full ">
       {/* form for searching user  */}
@@ -77,14 +83,13 @@ const Sidebar = () => {
           <p className="font-bold text-slate-600 text-xl text-center p-4 border-b border-b-slate-200">
             Search results
           </p>
-          {searchData?.length > 0 ? (
+          {filteredSearchData?.length > 0 ? (
             <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
-              {searchData?.map((user, idx) => (
+              {filteredSearchData?.map((user, idx) => (
                 // <SingleChat key={idx} user={user}></SingleChat>
                 <SearchSingleChat
                   key={idx}
                   user={user}
-                  searching={searching}
                   setSearching={setSearching}
                 ></SearchSingleChat>
               ))}
