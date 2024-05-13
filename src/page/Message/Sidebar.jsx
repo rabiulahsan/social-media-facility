@@ -91,6 +91,8 @@ const Sidebar = () => {
                   key={idx}
                   user={user}
                   setSearching={setSearching}
+                  setSearchValue={setSearchValue}
+                  setMyChat={setMyChat}
                 ></SearchSingleChat>
               ))}
             </div>

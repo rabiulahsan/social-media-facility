@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import UseSingleUser from "../../Hooks/UseSingleUser";
 import dayjs from "dayjs";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 const ChatBox = () => {
   const [loggedUser] = UseSingleUser();
@@ -16,10 +17,12 @@ const ChatBox = () => {
   const userId = useParams().id;
   // console.log(userId);
 
+  //todo getting details for chat users
+
   // finding there is chat or not
   useEffect(() => {
     fetch(
-      `http://localhost:5000/chats?loggedUserId=${loggedUser?._id}&userId=${userId}`
+      `http://localhost:5000/chat?loggedUserId=${loggedUser?._id}&userId=${userId}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -39,7 +42,7 @@ const ChatBox = () => {
       })
       .catch((error) => console.error(error));
   }, [chat]);
-  console.log(messages);
+  // console.log(messages);
 
   // const socket = io("http://localhost:5000");
   // useEffect(() => {}, []);
@@ -106,31 +109,47 @@ const ChatBox = () => {
       </div>
 
       {/* Message Container */}
-      <div className="overflow-y-auto max-h-screen">
-        <div className="my-4 px-[4%] ">
-          {messages?.map((message) => (
-            <div
-              key={message._id}
-              className={`my-3 ${
-                message.senderId === loggedUser?._id
-                  ? "flex justify-end"
-                  : "flex justify-start"
-              }`}
-            >
-              <p
-                className={`rounded p-3 ${
+      {messages?.length > 0 ? (
+        <div className="overflow-y-auto max-h-screen">
+          <div className="my-4 px-[4%] ">
+            {messages?.map((message) => (
+              <div
+                key={message._id}
+                className={`my-3 ${
                   message.senderId === loggedUser?._id
-                    ? "bg-slate-600 text-slate-200"
-                    : "bg-white text-slate-600"
+                    ? "flex justify-end"
+                    : "flex justify-start"
                 }`}
               >
-                {message.text}
-              </p>
-            </div>
-          ))}
-          <div ref={messagesEndRef} />
+                <p
+                  className={`rounded p-3 ${
+                    message.senderId === loggedUser?._id
+                      ? "bg-slate-600 text-slate-200"
+                      : "bg-white text-slate-600"
+                  }`}
+                >
+                  {message.text}
+                </p>
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="h-full flex justify-center items-center">
+          <div className="">
+            <Player
+              className="h-fit "
+              autoplay
+              loop
+              src="/message.json"
+            ></Player>
+            <p className="text-4xl font-bold text-slate-600 text-center">
+              Start a chat
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Form */}
       <div className="mt-auto px-[5%] py-3 z-10 sticky top-3">
