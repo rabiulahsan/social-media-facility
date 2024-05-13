@@ -77,17 +77,23 @@ const Sidebar = () => {
           <p className="font-bold text-slate-600 text-xl text-center p-4 border-b border-b-slate-200">
             Search results
           </p>
-          <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
-            {searchData?.map((user, idx) => (
-              // <SingleChat key={idx} user={user}></SingleChat>
-              <SearchSingleChat
-                key={idx}
-                user={user}
-                searching={searching}
-                setSearching={setSearching}
-              ></SearchSingleChat>
-            ))}
-          </div>
+          {searchData?.length > 0 ? (
+            <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
+              {searchData?.map((user, idx) => (
+                // <SingleChat key={idx} user={user}></SingleChat>
+                <SearchSingleChat
+                  key={idx}
+                  user={user}
+                  searching={searching}
+                  setSearching={setSearching}
+                ></SearchSingleChat>
+              ))}
+            </div>
+          ) : (
+            <p className="font-bold text-slate-600 text-xl text-center p-4 ">
+              No user found
+            </p>
+          )}
         </div>
       ) : (
         <div>
