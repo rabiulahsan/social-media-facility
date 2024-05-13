@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import SingleChat from "./SingleChat";
 import UseSingleUser from "../../Hooks/UseSingleUser";
-import { IoSearch } from "react-icons/io5";
+import { IoSearch, IoArrowBack } from "react-icons/io5";
+import SearchSingleChat from "./SearchSingleChat";
 
 const Sidebar = () => {
   const [loggedUser] = UseSingleUser();
@@ -22,6 +23,11 @@ const Sidebar = () => {
 
   // console.log(myChat);
 
+  //handle search back button
+  const handleSearchBack = () => {
+    setSearching(false);
+    setSearchValue("");
+  };
   // handle Search
   const handleSearch = (e) => {
     e.preventDefault();
@@ -45,10 +51,16 @@ const Sidebar = () => {
           onSubmit={handleSearch}
           className="flex justify-center items-center relative"
         >
+          <span
+            onClick={handleSearchBack}
+            className="bg-slate-100 hover:bg-slate-200 p-3 mr-4 text-slate-600 text-lg cursor-pointer rounded-full"
+          >
+            <IoArrowBack></IoArrowBack>
+          </span>
           <input
             className="rounded-3xl py-2 px-5 w-[100%] text-gray-600 focus:outline-none bg-slate-200"
             type="text"
-            placeholder="Search or start a new chat"
+            placeholder="Search new chat"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
@@ -64,7 +76,13 @@ const Sidebar = () => {
           </p>
           <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
             {myChat?.map((user, idx) => (
-              <SingleChat key={idx} user={user}></SingleChat>
+              // <SingleChat key={idx} user={user}></SingleChat>
+              <SearchSingleChat
+                key={idx}
+                user={user}
+                searching={searching}
+                setSearching={setSearching}
+              ></SearchSingleChat>
             ))}
           </div>
         </div>
