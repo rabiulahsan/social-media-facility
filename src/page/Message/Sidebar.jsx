@@ -9,6 +9,7 @@ const Sidebar = () => {
   const [myChat, setMyChat] = useState([]);
   const [searchValue, setSearchValue] = useState([]);
   const [searchData, setSearchData] = useState([]);
+  const [searching, setSearching] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:5000/chats/${loggedUser?._id}`)
@@ -24,10 +25,10 @@ const Sidebar = () => {
   // handle Search
   const handleSearch = (e) => {
     e.preventDefault();
-
+    setSearching(true);
     console.log(searchValue);
 
-    //   posting it to database
+    // fetching data for search value and set them on search data
     fetch(`http://localhost:5000/chatusers?value=${searchValue}`)
       .then((res) => res.json())
       .then((data) => {
@@ -55,14 +56,31 @@ const Sidebar = () => {
         </form>
       </div>
 
-      <p className="font-bold text-slate-600 text-xl text-center p-4 border-b border-b-slate-200">
-        All Chats
-      </p>
-      <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
-        {myChat?.map((user, idx) => (
-          <SingleChat key={idx} user={user}></SingleChat>
-        ))}
-      </div>
+      {searching ? (
+        <div>
+          {/* for searching results value  */}
+          <p className="font-bold text-slate-600 text-xl text-center p-4 border-b border-b-slate-200">
+            Search results
+          </p>
+          <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
+            {myChat?.map((user, idx) => (
+              <SingleChat key={idx} user={user}></SingleChat>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div>
+          {/* for displaying all chat  */}
+          <p className="font-bold text-slate-600 text-xl text-center p-4 border-b border-b-slate-200">
+            All Chats
+          </p>
+          <div className="flex flex-col gap-y-2 overflow-y-auto h-[520px] py-4 px-5 mt-2">
+            {myChat?.map((user, idx) => (
+              <SingleChat key={idx} user={user}></SingleChat>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
