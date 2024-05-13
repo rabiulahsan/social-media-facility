@@ -8,6 +8,7 @@ const Sidebar = () => {
   // console.log(loggedUser?._id);
   const [myChat, setMyChat] = useState([]);
   const [searchValue, setSearchValue] = useState([]);
+  const [searchData, setSearchData] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/chats/${loggedUser?._id}`)
@@ -24,11 +25,16 @@ const Sidebar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
 
+    console.log(searchValue);
+
     //   posting it to database
-    // fetch(`http://localhost:5000/chatusers?value=${searchValue}`)
-    //   .then((res) => res.json())
-    //   .then((data) => {});
+    fetch(`http://localhost:5000/chatusers?value=${searchValue}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSearchData(data);
+      });
   };
+  console.log(searchData);
 
   return (
     <div className="bg-white rounded  h-full ">
