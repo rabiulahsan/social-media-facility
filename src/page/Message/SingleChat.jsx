@@ -10,7 +10,7 @@ const SingleChat = ({ user }) => {
   // console.log(chatUserId);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/allusers/${chatUserId}`)
+    fetch(`hhttps://social-facilites-server.vercel.app/allusers/${chatUserId}`)
       .then((response) => response.json())
       .then((data) => {
         setChatUser(data);
@@ -32,10 +32,10 @@ const SingleChat = ({ user }) => {
         <div className=" w-full">
           <div className="flex justify-between items-center">
             <p className="font-bold  text-slate-600">{chatUser?.name}</p>
-            <p className="text-sm text-slate-600">Time</p>
+            {/* <p className="text-sm text-slate-600">Time</p> */}
           </div>
           <div className="">
-            <p className="text-sm text-slate-600 ">last message</p>
+            {/* <p className="text-sm text-slate-600 ">last message</p> */}
           </div>
         </div>
       </div>
