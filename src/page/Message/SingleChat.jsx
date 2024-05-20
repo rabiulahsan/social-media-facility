@@ -10,7 +10,7 @@ const SingleChat = ({ user }) => {
   // console.log(chatUserId);
 
   useEffect(() => {
-    fetch(`hhttps://social-facilites-server.vercel.app/allusers/${chatUserId}`)
+    fetch(`https://social-facilites-server.vercel.app/allusers/${chatUserId}`)
       .then((response) => response.json())
       .then((data) => {
         setChatUser(data);

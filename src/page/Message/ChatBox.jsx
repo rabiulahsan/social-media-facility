@@ -22,7 +22,7 @@ const ChatBox = () => {
   // console.log(userId);
 
   useEffect(() => {
-    socket = io("hhttps://social-facilites-server.vercel.app");
+    socket = io("https://social-facilites-server.vercel.app");
     socket.emit("setup", userId);
     socket.on("connected", () => setSocketConnected(true));
     socket.emit("join-room", userId);
@@ -35,7 +35,7 @@ const ChatBox = () => {
 
   // getting details for chat users
   useEffect(() => {
-    fetch(`hhttps://social-facilites-server.vercel.app/allusers/${userId}`)
+    fetch(`https://social-facilites-server.vercel.app/allusers/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setChatUserDetails(data);
@@ -46,7 +46,7 @@ const ChatBox = () => {
   // finding there is chat or not
   useEffect(() => {
     fetch(
-      `hhttps://social-facilites-server.vercel.app/chat?loggedUserId=${loggedUser?._id}&userId=${userId}`
+      `https://social-facilites-server.vercel.app/chat?loggedUserId=${loggedUser?._id}&userId=${userId}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -59,7 +59,7 @@ const ChatBox = () => {
 
   //getting all message for this chat id
   useEffect(() => {
-    fetch(`hhttps://social-facilites-server.vercel.app/messages/${chat?._id}`)
+    fetch(`https://social-facilites-server.vercel.app/messages/${chat?._id}`)
       .then((response) => response.json())
       .then((data) => {
         setMessages(data);
@@ -87,7 +87,7 @@ const ChatBox = () => {
 
     socket.emit("new-message", messageBody);
     //   posting it to database
-    fetch("hhttps://social-facilites-server.vercel.app/messages", {
+    fetch("https://social-facilites-server.vercel.app/messages", {
       method: "POST",
       headers: {
         "content-type": "application/json",

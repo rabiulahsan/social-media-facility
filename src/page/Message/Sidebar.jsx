@@ -15,9 +15,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(
-      `hhttps://social-facilites-server.vercel.app/chats/${loggedUser?._id}`
-    )
+    fetch(`https://social-facilites-server.vercel.app/chats/${loggedUser?._id}`)
       .then((response) => response.json())
       .then((data) => {
         setMyChat(data);
@@ -40,7 +38,7 @@ const Sidebar = () => {
 
     // fetching data for search value and set them on search data
     fetch(
-      `hhttps://social-facilites-server.vercel.app/chatusers?value=${searchValue}`
+      `https://social-facilites-server.vercel.app/chatusers?value=${searchValue}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -67,7 +65,7 @@ const Sidebar = () => {
     const newChat = { users: [loggedUser?._id, id] };
 
     //   posting it to database
-    fetch("hhttps://social-facilites-server.vercel.app/chats", {
+    fetch("https://social-facilites-server.vercel.app/chats", {
       method: "POST",
       headers: {
         "content-type": "application/json",
